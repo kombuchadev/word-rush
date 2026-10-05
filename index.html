@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Rush — Game Night</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-orbs" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="flash" id="flash" aria-hidden="true"></div>
+
+  <main class="stage" id="stage">
+    <header class="topbar">
+      <div class="round-pill" id="roundPill">Ready?</div>
+      <div class="tools">
+        <button class="icon-btn help-btn" id="helpBtn" title="How to play (H)">❓</button>
+        <button class="icon-btn" id="muteBtn" title="Mute / unmute (M)">🔊</button>
+        <button class="icon-btn" id="teamsBtn" title="Teams: number &amp; names">👥</button>
+        <button class="icon-btn" id="fullBtn" title="Fullscreen (F)">⛶</button>
+        <button class="icon-btn" id="settingsBtn" title="Settings">⚙</button>
+      </div>
+    </header>
+
+    <section class="timer-wrap">
+      <div class="timer" id="timer">
+        <svg viewBox="0 0 200 200" class="ring">
+          <circle class="ring-track" cx="100" cy="100" r="88" />
+          <circle class="ring-fill" id="ringFill" cx="100" cy="100" r="88" />
+        </svg>
+        <div class="timer-num" id="timerNum">30</div>
+        <div class="timer-label" id="timerLabel">seconds</div>
+      </div>
+    </section>
+
+    <section class="reel-bar" id="reelBar" aria-live="polite"></section>
+
+    <p class="hint" id="hint">Build the <b>longest word</b> you can from these letters!</p>
+
+    <section class="controls">
+      <button class="big-btn" id="nextBtn">
+        <span class="big-btn-text">Start Round 1</span>
+        <span class="kbd">Space</span>
+      </button>
+      <button class="big-btn gold" id="gameOverBtn" hidden>
+        <span class="big-btn-text">🏁 Game Over</span>
+      </button>
+      <button class="ghost-btn" id="pauseBtn" disabled>⏸ Pause</button>
+      <button class="ghost-btn" id="addTimeBtn" disabled>+10s</button>
+      <button class="ghost-btn" id="skipBtn" disabled>⏭ End now</button>
+      <button class="ghost-btn reveal-btn" id="revealBtn" disabled>💡 Reveal Words</button>
+    </section>
+
+    <section class="teams" id="teams"></section>
+  </main>
+
+  <div class="overlay" id="timesUp" aria-hidden="true">
+    <div class="timesup-text">TIME'S UP!</div>
+    <div class="timesup-sub">Pens down — reveal your words!</div>
+  </div>
+
+  <div class="overlay reveal" id="reveal" aria-hidden="true">
+    <div class="reveal-title">LONGEST POSSIBLE WORDS</div>
+    <div class="reveal-list" id="revealList"></div>
+    <div class="timesup-sub">Click anywhere to close</div>
+  </div>
+
+  <div class="overlay" id="gameOver" aria-hidden="true">
+    <div class="timesup-text go">GAME OVER</div>
+    <div class="timesup-sub" id="winnerText"></div>
+    <button class="big-btn small" id="resetFromOver">New Game</button>
+  </div>
+
+  <aside class="settings" id="settings" aria-hidden="true">
+    <h2>Settings</h2>
+    <label>Round duration
+      <select id="durationSel">
+        <option value="20">20 seconds</option>
+        <option value="30" selected>30 seconds</option>
+        <option value="45">45 seconds</option>
+        <option value="60">60 seconds</option>
+      </select>
+    </label>
+    <label>Main rounds (then "one more round?" up to 15)
+      <select id="roundsSel">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="15">15</option>
+      </select>
+    </label>
+    <label class="check"><input type="checkbox" id="shuffleSets" /> Shuffle letter-set order on new game</label>
+    <div class="settings-actions">
+      <button class="ghost-btn" id="resetBtn">↺ Reset game &amp; scores</button>
+      <button class="big-btn small" id="closeSettings">Done</button>
+    </div>
+    <p class="shortcuts">
+      <b>Shortcuts:</b> H = how to play · Space = next round · P = pause · R = reveal words · M = mute · F = fullscreen · 1–6 = +1 point to that team (Shift = −1)
+    </p>
+  </aside>
+
+  <div class="teams-panel" id="teamsPanel" aria-hidden="true">
+    <div class="teams-card">
+      <div class="teams-title">TEAMS</div>
+      <div class="team-count">
+        <button class="count-btn" id="teamCountMinus" title="Fewer teams">−</button>
+        <div class="count-num"><span id="teamCount">3</span><small>teams</small></div>
+        <button class="count-btn" id="teamCountPlus" title="More teams">+</button>
+      </div>
+      <div class="team-inputs" id="teamInputs"></div>
+      <button class="big-btn small" id="teamsDone">Done</button>
+    </div>
+  </div>
+
+  <div class="help" id="help" aria-hidden="true">
+    <div class="help-card">
+      <div class="help-title">HOW TO PLAY</div>
+      <ol class="help-rules" id="helpRules"></ol>
+      <button class="big-btn small help-go" id="helpClose">Got it — let's play! 🚀</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
